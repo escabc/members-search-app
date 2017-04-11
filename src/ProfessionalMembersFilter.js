@@ -22,7 +22,7 @@ const styles = {
     marginTop: 50,
     display: 'flex',
     alignItems: 'flex-end',
-    // justifyContent: 'space-between',
+    justifyContent: 'space-between',
   },
 }
 

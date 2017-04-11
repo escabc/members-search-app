@@ -36,10 +36,11 @@ html, body {
   height: 34px;
 }
 .Select-input {
-  height: 32px;
+  height: 32px !important;
 }
 .Select-control {
-  height: 34px;
+  height: 34px !important;
+  border-radius: 2px !important;
 }
 
 input:focus, select:focus, button:focus, a:focus {
