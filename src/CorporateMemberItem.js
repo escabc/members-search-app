@@ -18,7 +18,7 @@ const styles = {
   },
 }
 
-const CorporateMemberItem = ({ name, location, speciality, expired, totals, onClick }) => {
+const CorporateMemberItem = ({ name, location, specialities, expired, totals, onClick }) => {
   const address = location.city && location.province ? `${location.city}, ${location.province}` : null
 
   return (
@@ -27,7 +27,7 @@ const CorporateMemberItem = ({ name, location, speciality, expired, totals, onCl
       <div style={styles.details} onClick={onClick}>
         <MemberDetails
           name={name}
-          description={speciality}
+          description={specialities[0]}
           location={address}
           expired={expired}
         />
@@ -39,7 +39,6 @@ const CorporateMemberItem = ({ name, location, speciality, expired, totals, onCl
 
 CorporateMemberItem.propTypes = {
   name: PropTypes.string.isRequired,
-  speciality: PropTypes.string.isRequired,
   expired: PropTypes.bool.isRequired,
 }
 

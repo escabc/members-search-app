@@ -45,7 +45,7 @@ class CorporateMembers extends Component {
       filteredMembers = filteredMembers.filter(x => x.regions.includes(filter.region))
     }
     if (filter.speciality) {
-      filteredMembers = filteredMembers.filter(x => x.speciality).filter(x => x.speciality.match(new RegExp(filter.speciality, 'i')))
+      filteredMembers = filteredMembers.filter(x => x.specialities.includes(filter.speciality))
     }
 
     this.setState({
@@ -107,7 +107,7 @@ const CorporateMembersWithData = graphql(gql`
     corporateMembers {
       id
       name
-      speciality
+      specialities
       email
       phone
       fax
