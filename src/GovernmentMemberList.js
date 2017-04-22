@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Panel from './Panel'
-import ProfessionalMemberItem from './ProfessionalMemberItem'
+import GovernmentMemberItem from './GovernmentMemberItem'
 
 const styles = {
   root: {
@@ -10,10 +10,10 @@ const styles = {
   },
 }
 
-const ProfessionalMembersList = ({ members = [], onMemberClick }) => (
+const GovernmentMemberList = ({ members = [], onMemberClick }) => (
   <div style={styles.root}>
-    <Panel title="Professional Members" id="members-list">
-      {members.map(x => <ProfessionalMemberItem
+    <Panel title="Government Members" id="members-list">
+      {members.map(x => <GovernmentMemberItem
         {...x}
         key={x.id}
         onClick={() => onMemberClick(x)}
@@ -22,9 +22,9 @@ const ProfessionalMembersList = ({ members = [], onMemberClick }) => (
   </div>
 )
 
-ProfessionalMembersList.propTypes = {
+GovernmentMemberList.propTypes = {
   members: PropTypes.array.isRequired,
   onMemberClick: PropTypes.func.isRequired,
 }
 
-export default ProfessionalMembersList
+export default GovernmentMemberList

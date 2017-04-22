@@ -1,10 +1,7 @@
 import React from 'react'
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
-import {
-  BrowserRouter as Router,
-  Route,
-} from 'react-router-dom'
+import { HashRouter as Router, Route } from 'react-router-dom'
 
 import Navigation from './Navigation'
 import ProfessionalMembers from './ProfessionalMembers'
@@ -25,7 +22,7 @@ const createClient = () => (
 const App = () => (
   <ApolloProvider client={createClient()}>
     <Router>
-      <div>
+      <div style={{ padding: 0, width: '100%', maxWidth: 1000 }}>
         <Navigation />
 
         <Route exact path="/" component={ProfessionalMembers} />

@@ -8,7 +8,7 @@ const styles = {
     border: 'solid 1px #E7ECF1',
   },
   header: {
-    padding: '23px 21px',
+    padding: '20px 40px',
     borderBottom: 'solid 1px #E7ECF1',
   },
   title: {
@@ -17,9 +17,9 @@ const styles = {
   },
 }
 
-const Panel = ({ title, children }) => {
+const Panel = ({ title, id, children }) => {
   return (
-    <div style={styles.root}>
+    <div style={styles.root} id={id}>
       <div style={styles.header}>
         <span style={styles.title}>{title}</span>
       </div>

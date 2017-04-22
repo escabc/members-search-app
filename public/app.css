@@ -65,10 +65,19 @@ input:focus, select:focus, button:focus, a:focus {
   line-height: 28px;
   text-align: center;
   cursor: pointer;
+  user-select: none;
 }
 
 .pagination li.active {
   background-color: #94a0b2;
 	border: solid 1px #94a0b2;
   color: #ffffff;
+}
+
+.msa-tooltip {
+  padding: 10px !important;
+  font-family: Arimo !important;
+  font-size: 12px !important;
+	color: #ffffff !important;
+  border-radius: 4px !important;
 }

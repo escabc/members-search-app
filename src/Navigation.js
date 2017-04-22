@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react'
+import { withRouter } from 'react-router-dom'
+
 import NavigationItem from './NavigationItem'
 
 const styles = {
@@ -14,13 +16,13 @@ const items = [
   { id: '/government', title: 'Government', icon: 'flag' },
 ]
 
-const Navigation = ({ active, onClick }) => {
+const Navigation = ({ active, location, onClick }) => {
   return (
     <div style={styles.root}>
       {items.map(x => <NavigationItem
         {...x}
         key={x.id}
-        active={active === x.id}
+        active={location.pathname === x.id}
         onClick={() => onClick(x.id)}
       />)}
     </div>
@@ -32,4 +34,6 @@ Navigation.propTypes = {
   onClick: PropTypes.func.isRequired,
 }
 
-export default Navigation
+const NavigationWithRouter = withRouter(Navigation)
+
+export default NavigationWithRouter

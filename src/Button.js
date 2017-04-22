@@ -3,32 +3,47 @@ import PropTypes from 'prop-types'
 
 import theme from './theme'
 
-const styles = {
-  root: {
-    display: 'inline-block',
-    width: 112,
-    height: 34,
-    borderRadius: 2,
-    backgroundColor: theme.colors.primary,
-    border: `solid 1px ${theme.colors.primary}`,
-    cursor: 'pointer',
-    color: '#FFFFFF',
-  },
+const getStyles = ({ styleType }) => {
+  const styles = {
+    root: {
+      display: 'inline-block',
+      width: 112,
+      height: 34,
+      borderRadius: 2,
+      backgroundColor: '#FFFFFF',
+      border: 'solid 1px #94A0B2',
+      color: '#94A0B2',
+      cursor: 'pointer',
+    },
+  }
+
+  if (styleType === 'primary') {
+    styles.root.backgroundColor = theme.colors.primary
+    styles.root.border = `solid 1px ${theme.colors.primary}`
+    styles.root.cursor = 'pointer'
+    styles.root.color = '#FFFFFF'
+  }
+
+  return styles
 }
 
-const Button = ({ color, type, onClick, children }) => (
-  <button style={styles.root} type={type} onClick={onClick}>
-    {children}
-  </button>
-)
+const Button = ({ styleType, type, onClick, children }) => {
+  const styles = getStyles({ styleType })
+
+  return (
+    <button style={styles.root} type={type} onClick={onClick}>
+      {children}
+    </button>
+  )
+}
 
 Button.propTypes = {
-  color: PropTypes.string,
+  styleType: PropTypes.oneOf(['default', 'primary']),
   type: PropTypes.oneOf(['button', 'submit']),
 }
 
 Button.defaultProps = {
-  color: theme.colors.primary,
+  styleType: 'default',
   type: 'button',
 }
 

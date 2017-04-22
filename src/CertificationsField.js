@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactTooltip from 'react-tooltip'
 
 import theme from './theme'
 
 const getStyles = ({ CESCL, CPESC, CISEC }) => {
   const button = {
-    width: 60,
     height: 34,
+    paddingLeft: 10,
+    paddingRight: 10,
     lineHeight: '34px',
     color: '#94A0B2',
     textAlign: 'center',
@@ -44,6 +46,12 @@ const getStyles = ({ CESCL, CPESC, CISEC }) => {
       borderRadius: '0 2px 2px 0',
       border: '1px solid #C2CAD8',
     },
+    icon: {
+      paddingLeft: 5,
+      width: 12,
+      height: 12,
+      color: '#5C9BD1',
+    },
   }
 
   if (CESCL) {
@@ -72,12 +80,26 @@ const CertificationsField = (props) => {
 
   return (
     <div style={styles.root}>
-      <div style={styles.label}>Certifications</div>
+      <div style={styles.label}>
+        <span>Certifications</span>
+        <span><i className="fa fa-info-circle" style={styles.icon} aria-hidden="true" data-tip data-for="filter-tooltip" /></span>
+      </div>
       <div style={styles.list}>
         <div style={styles.CESCL} onClick={() => onClick('CESCL')}>CESCL</div>
         <div style={styles.CPESC} onClick={() => onClick('CPESC')}>CPESC</div>
         <div style={styles.CISEC} onClick={() => onClick('CISEC')}>CISEC</div>
       </div>
+      <ReactTooltip id="filter-tooltip" class="msa-tooltip" effect="solid" place="right">
+        <div>
+          <strong>Lorem ipsum dolor</strong> -  consectetur adipiscing elit
+        </div>
+        <div>
+          <strong>Lorem ipsum dolor</strong> -  consectetur adipiscing elit
+        </div>
+        <div>
+          <strong>Lorem ipsum dolor</strong> -  consectetur adipiscing elit
+        </div>
+      </ReactTooltip>
     </div>
   )
 }
