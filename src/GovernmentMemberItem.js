@@ -17,7 +17,7 @@ const styles = {
   },
 }
 
-const GovernmentMemberItem = ({ name, location, region, expired, onClick }) => {
+const GovernmentMemberItem = ({ name, location, regions, expired, onClick }) => {
   const address = location.city && location.province ? `${location.city}, ${location.province}` : null
 
   return (
@@ -26,7 +26,7 @@ const GovernmentMemberItem = ({ name, location, region, expired, onClick }) => {
       <div style={styles.details} onClick={onClick}>
         <MemberDetails
           name={name}
-          description={region}
+          description={regions[0]}
           location={address}
           expired={expired}
         />

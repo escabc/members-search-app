@@ -56,7 +56,7 @@ class ProfessionalMembersFilter extends Component {
           <TextField
             label="Search by Name"
             placeholder="Full Name"
-            width="150"
+            width={150}
             value={name}
             onChange={event => this.setState({ name: event.target.value })}
           />
@@ -65,7 +65,7 @@ class ProfessionalMembersFilter extends Component {
           <TextField
             label="Search by Company"
             placeholder="Company Name"
-            width="150"
+            width={150}
             value={company}
             onChange={event => this.setState({ company: event.target.value })}
           />
@@ -74,7 +74,7 @@ class ProfessionalMembersFilter extends Component {
           <SelectField
             label="Search by Region"
             placeholder="Select a Region"
-            width="150"
+            width={150}
             value={region}
             options={regions}
             onChange={x => this.setState({ region: x ? x.value : null })}
@@ -84,7 +84,7 @@ class ProfessionalMembersFilter extends Component {
           <SelectField
             label="Search by City"
             placeholder="Select a City"
-            width="150"
+            width={150}
             value={city}
             options={cities}
             onChange={x => this.setState({ city: x ? x.value : null })}

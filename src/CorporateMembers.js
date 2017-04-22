@@ -42,7 +42,7 @@ class CorporateMembers extends Component {
       filteredMembers = filteredMembers.filter(x => x.name.match(new RegExp(nameFilter, 'i')))
     }
     if (filter.region) {
-      filteredMembers = filteredMembers.filter(x => x.location.region).filter(x => x.location.region.match(new RegExp(filter.region, 'i')))
+      filteredMembers = filteredMembers.filter(x => x.regions.includes(filter.region))
     }
     if (filter.speciality) {
       filteredMembers = filteredMembers.filter(x => x.speciality).filter(x => x.speciality.match(new RegExp(filter.speciality, 'i')))
@@ -76,7 +76,7 @@ class CorporateMembers extends Component {
     const members = [...filteredMembers.slice(offset, offset + PER_PAGE)]
 
     return (
-      <div style={{ marginTop: 100 }}>
+      <div style={{ marginTop: 50 }}>
         <CorporateMembersFilter onClick={this.handleFilterClick} />
         <CorporateMemberList members={members} onMemberClick={this.handleMemberClick} />
         <div style={{ marginTop: 40, marginBottom: 100, float: 'right' }}>
@@ -112,7 +112,8 @@ const CorporateMembersWithData = graphql(gql`
       phone
       fax
       website
-      location { address city province country postalCode region }
+      regions
+      location { address city province country postalCode }
       totals { CESCL CPESC CISEC }
       registeredAt
       expired

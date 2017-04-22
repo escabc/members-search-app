@@ -46,7 +46,7 @@ class ProfessionalMembers extends Component {
       filteredMembers = filteredMembers.filter(x => x.company).filter(x => x.company.match(new RegExp(companyFilter, 'i')))
     }
     if (filter.region) {
-      filteredMembers = filteredMembers.filter(x => x.location.region).filter(x => x.location.region.match(new RegExp(filter.region, 'i')))
+      filteredMembers = filteredMembers.filter(x => x.regions.includes(filter.region))
     }
     if (filter.city) {
       filteredMembers = filteredMembers.filter(x => x.location.city).filter(x => x.location.city.match(new RegExp(filter.city, 'i')))
@@ -135,7 +135,8 @@ const ProfessionalMembersWithData = graphql(gql`
       email
       phone
       company
-      location { address city province country postalCode region }
+      regions
+      location { address city province country postalCode }
       certifications {
         CESCL
         CESCLExpired
