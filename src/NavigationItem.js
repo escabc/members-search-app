@@ -12,7 +12,10 @@ const getStyles = ({ active }) => {
       width: 210,
       padding: 14,
       cursor: 'pointer',
-      border: 'solid 1px #E7ECF1',
+      borderTop: 'solid 1px #E7ECF1',
+      borderRight: 'solid 1px #E7ECF1',
+      borderBottom: 'solid 1px #E7ECF1',
+      borderLeft: 'solid 1px #E7ECF1',
       textDecoration: 'none',
     },
     icon: {
@@ -26,7 +29,7 @@ const getStyles = ({ active }) => {
 
   styles.root.backgroundColor = active ? '#FFFFFF' : theme.colors.grey.background
   styles.root.borderColor = active ? theme.colors.success : '#E7ECF1'
-  styles.root.borderBottomColor = active ? 'transparent' : '#E7ECF1'
+  styles.root.borderBottom = 'none'
   styles.root.boxShadow = active ? `inset 0 4px ${theme.colors.success}` : null
   styles.icon.color = active ? theme.colors.success : theme.colors.grey.darker
   styles.title.color = active ? theme.colors.success : theme.colors.grey.darker
