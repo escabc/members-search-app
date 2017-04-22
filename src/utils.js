@@ -8,6 +8,7 @@ export const regions = [
   { value: 'Skeena', label: 'Skeena' },
   { value: 'Thompson', label: 'Thompson' },
   { value: 'Vancouver Island', label: 'Vancouver Island' },
+  { value: 'Out of Province', label: 'Out of Province' },
 ]
 
 export const specialities = [
