@@ -103,6 +103,7 @@ const GovernmentMembersWithData = graphql(gql`
     governmentMembers {
       id
       name
+      avatar
       regions
       location {
         address

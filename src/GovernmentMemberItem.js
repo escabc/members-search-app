@@ -17,12 +17,12 @@ const styles = {
   },
 }
 
-const GovernmentMemberItem = ({ name, location, regions, expired, onClick }) => {
+const GovernmentMemberItem = ({ name, avatar, location, regions, expired, onClick }) => {
   const address = location.city && location.province ? `${location.city}, ${location.province}` : null
 
   return (
     <div style={styles.root}>
-      <CorporateAvatar />
+      <CorporateAvatar image={avatar} />
       <div style={styles.details} onClick={onClick}>
         <MemberDetails
           name={name}

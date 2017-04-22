@@ -60,7 +60,7 @@ const styles = {
 }
 
 const GovernmentMemberModal = ({ open, member, onClose }) => {
-  const { name, expired, region, email, phone, fax, website, location } = member
+  const { name, avatar, expired, region, email, phone, fax, website, location } = member
 
   return (
     <Modal
@@ -72,7 +72,7 @@ const GovernmentMemberModal = ({ open, member, onClose }) => {
     >
       <div style={styles.body}>
         <div style={styles.leftColumn}>
-          <CorporateAvatar />
+          <CorporateAvatar image={avatar} />
         </div>
         <div style={styles.rightColumn}>
           <MemberName value={name} expired={expired} />

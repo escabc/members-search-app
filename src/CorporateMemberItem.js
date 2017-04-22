@@ -18,12 +18,12 @@ const styles = {
   },
 }
 
-const CorporateMemberItem = ({ name, location, specialities, expired, totals, onClick }) => {
+const CorporateMemberItem = ({ name, avatar, location, specialities, expired, totals, onClick }) => {
   const address = location.city && location.province ? `${location.city}, ${location.province}` : null
 
   return (
     <div style={styles.root}>
-      <CorporateAvatar />
+      <CorporateAvatar image={avatar} />
       <div style={styles.details} onClick={onClick}>
         <MemberDetails
           name={name}

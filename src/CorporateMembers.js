@@ -113,6 +113,7 @@ const CorporateMembersWithData = graphql(gql`
       fax
       website
       regions
+      avatar
       location { address city province country postalCode }
       totals { CESCL CPESC CISEC }
       registeredAt
