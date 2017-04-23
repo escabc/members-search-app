@@ -37,7 +37,6 @@ const GovernmentMemberItem = ({ name, avatar, location, regions, expired, onClic
 
 GovernmentMemberItem.propTypes = {
   name: PropTypes.string.isRequired,
-  speciality: PropTypes.string.isRequired,
   expired: PropTypes.bool.isRequired,
 }
 

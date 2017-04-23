@@ -81,3 +81,7 @@ input:focus, select:focus, button:focus, a:focus {
 	color: #ffffff !important;
   border-radius: 4px !important;
 }
+
+.ReactModal__Body--open {
+  overflow: hidden;
+}

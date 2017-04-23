@@ -107,6 +107,7 @@ const CorporateMembersWithData = graphql(gql`
     corporateMembers {
       id
       name
+      description
       specialities
       email
       phone

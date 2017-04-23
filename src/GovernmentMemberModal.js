@@ -5,7 +5,6 @@ import CorporateAvatar from './CorporateAvatar'
 import Button from './Button'
 import MemberName from './MemberName'
 import MemberDetailsItem from './MemberDetailsItem'
-import MemberCertificationTotals from './MemberCertificationTotals'
 
 import theme from './theme'
 
@@ -44,6 +43,12 @@ const styles = {
     fontWeight: 'bold',
     color: '#2C3E50',
   },
+  description: {
+    marginTop: 20,
+    color: '#5E738B',
+    fontSize: 13,
+    lineHeight: '18px',
+  },
   region: {
     marginTop: 10,
     fontSize: 16,
@@ -60,7 +65,18 @@ const styles = {
 }
 
 const GovernmentMemberModal = ({ open, member, onClose }) => {
-  const { name, avatar, expired, region, email, phone, fax, website, location } = member
+  const {
+    name,
+    description,
+    avatar,
+    expired,
+    regions = [],
+    email,
+    phone,
+    fax,
+    website,
+    location,
+  } = member
 
   return (
     <Modal
@@ -76,7 +92,7 @@ const GovernmentMemberModal = ({ open, member, onClose }) => {
         </div>
         <div style={styles.rightColumn}>
           <MemberName value={name} expired={expired} />
-          <div style={styles.region}>{region}</div>
+          <div style={styles.region}>{regions[0]}</div>
           <div style={{ marginBottom: 20 }} />
           {location ?
             <MemberDetailsItem icon="map-marker">
@@ -90,6 +106,7 @@ const GovernmentMemberModal = ({ open, member, onClose }) => {
           {fax ? <MemberDetailsItem icon="fax">{fax}</MemberDetailsItem> : null}
           {website ? <MemberDetailsItem icon="link"><a style={styles.link} href={website} target="_blank" rel="noopener noreferrer">Visit Website</a></MemberDetailsItem> : null}
           {email ? <MemberDetailsItem icon="envelope">{email}</MemberDetailsItem> : null}
+          {description ? <div style={styles.description}>{description}</div> : null}
         </div>
       </div>
       <div style={styles.footer}>

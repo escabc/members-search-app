@@ -25,7 +25,7 @@ const styles = {
       width: 540,
       bottom: 'initial',
       padding: 0,
-      margin: '50px auto 0 auto',
+      margin: '0 auto 0 auto',
       borderRadius: 6,
       borderColor: '#FFFFFF',
     },
@@ -43,6 +43,12 @@ const styles = {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#2C3E50',
+  },
+  description: {
+    marginTop: 20,
+    color: '#5E738B',
+    fontSize: 13,
+    lineHeight: '18px',
   },
   speciality: {
     marginTop: 10,
@@ -66,7 +72,19 @@ const styles = {
 }
 
 const CorporateMemberModal = ({ open, member, onClose }) => {
-  const { name, avatar, expired, speciality, email, phone, fax, website, location, totals } = member
+  const {
+    name,
+    description,
+    avatar,
+    expired,
+    specialities = [],
+    email,
+    phone,
+    fax,
+    website,
+    location,
+    totals,
+  } = member
 
   return (
     <Modal
@@ -82,7 +100,7 @@ const CorporateMemberModal = ({ open, member, onClose }) => {
         </div>
         <div style={styles.rightColumn}>
           <MemberName value={name} expired={expired} />
-          <div style={styles.speciality}>{speciality}</div>
+          <div style={styles.speciality}>{specialities[0]}</div>
           <div style={styles.certifications}>Certifications:</div>
           <MemberCertificationTotals {...totals} />
           <div style={{ marginBottom: 20 }} />
@@ -98,6 +116,7 @@ const CorporateMemberModal = ({ open, member, onClose }) => {
           {fax ? <MemberDetailsItem icon="fax">{fax}</MemberDetailsItem> : null}
           {website ? <MemberDetailsItem icon="link"><a style={styles.link} href={website} target="_blank" rel="noopener noreferrer">Visit Website</a></MemberDetailsItem> : null}
           {email ? <MemberDetailsItem icon="envelope">{email}</MemberDetailsItem> : null}
+          {description ? <div style={styles.description}>{description}</div> : null}
         </div>
       </div>
       <div style={styles.footer}>
