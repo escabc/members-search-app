@@ -7,6 +7,7 @@ import MemberDetails from './MemberDetails'
 const styles = {
   root: {
     display: 'flex',
+    alignItems: 'center',
     padding: '20px 40px',
     borderBottom: 'solid 1px #E7ECF1',
   },
