@@ -30,6 +30,12 @@ const getStyles = ({ style, styleType }) => {
     styles.root.cursor = 'pointer'
     styles.root.color = '#FFFFFF'
   }
+  if (styleType === 'success') {
+    styles.root.backgroundColor = '#526825'
+    styles.root.border = 'solid 1px #526825'
+    styles.root.cursor = 'pointer'
+    styles.root.color = '#F3F5F8'
+  }
 
   return styles
 }

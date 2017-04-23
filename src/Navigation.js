@@ -2,10 +2,12 @@ import React, { PropTypes } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import NavigationItem from './NavigationItem'
+import Button from './Button'
 
 const styles = {
   root: {
     display: 'flex',
+    alignItems: 'center',
     borderBottom: 'solid 1px #E7ECF1',
   },
 }
@@ -25,6 +27,9 @@ const Navigation = ({ active, location, onClick }) => {
         active={location.pathname === x.id}
         onClick={() => onClick(x.id)}
       />)}
+      <div style={{ flex: 1, textAlign: 'right' }}>
+        <Button styleType="success" onClick={() => (window.location.href = 'http://escabc.com/?page=Membership1')}>Become a Member</Button>
+      </div>
     </div>
   )
 }
