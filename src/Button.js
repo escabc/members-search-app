@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 
 import theme from './theme'
 
-const getStyles = ({ styleType }) => {
+const getStyles = ({ style, styleType }) => {
   const styles = {
     root: {
+      ...style,
+      padding: '0 20px',
       display: 'inline-block',
-      width: 112,
       height: 34,
       borderRadius: 2,
       backgroundColor: '#FFFFFF',
@@ -23,12 +24,18 @@ const getStyles = ({ styleType }) => {
     styles.root.cursor = 'pointer'
     styles.root.color = '#FFFFFF'
   }
+  if (styleType === 'warning') {
+    styles.root.backgroundColor = '#F3C200'
+    styles.root.border = 'solid 1px #F3C200'
+    styles.root.cursor = 'pointer'
+    styles.root.color = '#FFFFFF'
+  }
 
   return styles
 }
 
-const Button = ({ styleType, type, onClick, children }) => {
-  const styles = getStyles({ styleType })
+const Button = ({ style, styleType, type, onClick, children }) => {
+  const styles = getStyles({ style, styleType })
 
   return (
     <button style={styles.root} type={type} onClick={onClick}>

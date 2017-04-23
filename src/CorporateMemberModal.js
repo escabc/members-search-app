@@ -22,7 +22,7 @@ const styles = {
       backgroundColor: 'rgba(44, 62, 80, 0.6)',
     },
     content: {
-      width: 540,
+      width: 600,
       bottom: 'initial',
       padding: 0,
       margin: '0 auto 0 auto',
@@ -67,7 +67,8 @@ const styles = {
   },
   footer: {
     padding: '20px 40px',
-    textAlign: 'right',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }
 
@@ -121,6 +122,7 @@ const CorporateMemberModal = ({ open, member, onClose }) => {
       </div>
       <div style={styles.footer}>
         <Button onClick={onClose}>Close</Button>
+        {expired ? <Button styleType="warning" style={{ marginLeft: 20 }} onClick={() => (window.location.href = 'https://escabc.site-ym.com/login.aspx?returl=/default.asp?')}>Renew Membership</Button> : null}
       </div>
     </Modal>
   )

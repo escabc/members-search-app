@@ -62,7 +62,8 @@ const styles = {
   },
   footer: {
     padding: '20px 40px',
-    textAlign: 'right',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }
 
@@ -101,6 +102,7 @@ const ProfessionalMemberModal = ({ open, member, onClose }) => {
       </div>
       <div style={styles.footer}>
         <Button onClick={onClose}>Close</Button>
+        {expired ? <Button styleType="warning" style={{ marginLeft: 20 }} onClick={() => (window.location.href = 'https://escabc.site-ym.com/login.aspx?returl=/default.asp?')}>Renew Membership</Button> : null}
       </div>
     </Modal>
   )
