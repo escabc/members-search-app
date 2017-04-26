@@ -1,24 +1,18 @@
 import React from 'react'
 import Modal from 'react-modal'
 
+import ModalSection from './ModalSection'
 import CorporateAvatar from './CorporateAvatar'
 import Button from './Button'
 import MemberName from './MemberName'
 import MemberDetailsItem from './MemberDetailsItem'
-import MemberCertificationTotals from './MemberCertificationTotals'
-
-import theme from './theme'
+import MemberCertificationTotalsMini from './MemberCertificationTotalsMini'
 
 const styles = {
-  root: {
-    display: 'flex',
-    color: theme.colors.grey.darker,
-    fontSize: 18,
-    fontWeight: 'bold',
-    cursor: 'pointer',
-  },
+  root: {},
   modal: {
     overlay: {
+      overflowY: 'scroll',
       backgroundColor: 'rgba(44, 62, 80, 0.6)',
     },
     content: {
@@ -30,14 +24,33 @@ const styles = {
       borderColor: '#FFFFFF',
     },
   },
-  body: {
-    padding: 40,
-    display: 'flex',
-    borderBottom: 'solid 1px #E7ECF1',
+  header: {
+    root: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    leftColumn: {
+      padding: 24,
+      width: 185,
+      backgroundColor: '#FAFAFA',
+    },
+    rightColumn: {
+      paddingLeft: 20,
+    },
   },
-  leftColumn: {},
-  rightColumn: {
-    paddingLeft: 30,
+  body: {
+    root: {
+      display: 'flex',
+      borderBottom: 'solid 1px #E7ECF1',
+    },
+    leftColumn: {
+      paddingLeft: 24,
+      flex: '0 0 185px',
+      backgroundColor: '#FAFAFA',
+    },
+    rightColumn: {
+      paddingLeft: 20,
+    },
   },
   name: {
     fontSize: 18,
@@ -65,6 +78,12 @@ const styles = {
     color: '#526825',
     textDecoration: 'none',
   },
+  regionItem: {
+    marginBottom: 10,
+    fontSize: 13,
+    lineHeight: '18px',
+    color: '#5E738B',
+  },
   footer: {
     padding: '20px 40px',
     display: 'flex',
@@ -79,12 +98,13 @@ const CorporateMemberModal = ({ open, member, onClose }) => {
     avatar,
     expired,
     specialities = [],
+    regions = [],
     email,
     phone,
     fax,
     website,
     location,
-    totals,
+    totals = {},
   } = member
 
   return (
@@ -95,28 +115,46 @@ const CorporateMemberModal = ({ open, member, onClose }) => {
       isOpen={open}
       onRequestClose={onClose}
     >
-      <div style={styles.body}>
-        <div style={styles.leftColumn}>
+      <div style={styles.header.root}>
+        <div style={styles.header.leftColumn}>
           <CorporateAvatar image={avatar} />
         </div>
-        <div style={styles.rightColumn}>
+        <div style={styles.header.rightColumn}>
           <MemberName value={name} expired={expired} />
           <div style={styles.speciality}>{specialities[0]}</div>
-          <div style={styles.certifications}>Certifications:</div>
-          <MemberCertificationTotals {...totals} />
-          <div style={{ marginBottom: 20 }} />
-          {location ?
-            <MemberDetailsItem icon="map-marker">
-              <div>{location.address}</div>
-              <div>{location.city}, {location.province}, {location.country}</div>
-              <div>{location.postalCode}</div>
-            </MemberDetailsItem>
+        </div>
+      </div>
+      <div style={styles.body.root}>
+        <div style={styles.body.leftColumn}>
+          {
+            totals.CESCL || totals.CPESC || totals.CISEC ?
+              <ModalSection title="Certifications">
+                <MemberCertificationTotalsMini {...totals} />
+              </ModalSection>
             : null
           }
-          {phone ? <MemberDetailsItem icon="phone">{phone}</MemberDetailsItem> : null}
-          {fax ? <MemberDetailsItem icon="fax">{fax}</MemberDetailsItem> : null}
-          {website ? <MemberDetailsItem icon="link"><a style={styles.link} href={website} target="_blank" rel="noopener noreferrer">Visit Website</a></MemberDetailsItem> : null}
-          {email ? <MemberDetailsItem icon="envelope">{email}</MemberDetailsItem> : null}
+          {
+            regions.length ?
+              <ModalSection title="Regions">
+                {regions.map(x => <div style={styles.regionItem}>{x}</div>)}
+              </ModalSection>
+              : null
+          }
+        </div>
+        <div style={styles.body.rightColumn}>
+          <ModalSection title="Contact Info">
+            {location ?
+              <MemberDetailsItem icon="map-marker">
+                <div>{location.address} {location.city}</div>
+                <div>{location.province}, {location.country} {location.postalCode}</div>
+              </MemberDetailsItem>
+              : null
+            }
+            {phone ? <MemberDetailsItem icon="phone">{phone}</MemberDetailsItem> : null}
+            {fax ? <MemberDetailsItem icon="fax">{fax}</MemberDetailsItem> : null}
+            {website ? <MemberDetailsItem icon="link"><a style={styles.link} href={website} target="_blank" rel="noopener noreferrer">Visit Website</a></MemberDetailsItem> : null}
+            {email ? <MemberDetailsItem icon="envelope">{email}</MemberDetailsItem> : null}
+          </ModalSection>
           {description ? <div style={styles.description}>{description}</div> : null}
         </div>
       </div>
