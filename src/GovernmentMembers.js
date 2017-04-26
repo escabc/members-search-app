@@ -104,6 +104,10 @@ const GovernmentMembersWithData = graphql(gql`
       id
       name
       description
+      email
+      phone
+      fax
+      website
       avatar
       regions
       location {
