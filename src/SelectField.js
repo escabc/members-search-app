@@ -43,11 +43,12 @@ const SelectField = ({ label, placeholder, clearable, width, value, options, onC
 }
 
 SelectField.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
 }
 
 SelectField.defaultProps = {
   width: 170,
+  value: null,
 }
 
 export default SelectField

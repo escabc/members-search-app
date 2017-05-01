@@ -103,7 +103,7 @@ const CorporateMemberModal = ({ open, member, onClose }) => {
     phone,
     fax,
     website,
-    location,
+    location = {},
     totals = {},
   } = member
 

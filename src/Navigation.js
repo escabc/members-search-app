@@ -18,7 +18,7 @@ const items = [
   { id: '/government', title: 'Government', icon: 'flag' },
 ]
 
-const Navigation = ({ active, location, onClick }) => {
+const Navigation = ({ location, onClick }) => {
   return (
     <div style={styles.root}>
       {items.map(x => <NavigationItem
@@ -35,8 +35,11 @@ const Navigation = ({ active, location, onClick }) => {
 }
 
 Navigation.propTypes = {
-  active: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+}
+
+Navigation.defaultProps = {
+  onClick: () => {},
 }
 
 const NavigationWithRouter = withRouter(Navigation)

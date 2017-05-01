@@ -76,7 +76,7 @@ const GovernmentMemberModal = ({ open, member, onClose }) => {
     phone,
     fax,
     website,
-    location,
+    location = {},
   } = member
 
   return (

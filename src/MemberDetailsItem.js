@@ -1,6 +1,5 @@
-import React, { PropTypes } from 'react'
-
-import theme from './theme'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const styles = {
   root: {

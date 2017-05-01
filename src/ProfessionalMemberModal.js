@@ -68,7 +68,7 @@ const styles = {
 }
 
 const ProfessionalMemberModal = ({ open, member, onClose }) => {
-  const { name, expired, title, email, phone, location, company, certifications } = member
+  const { name, expired, title, email, phone, location = {}, company, certifications = {} } = member
 
   return (
     <Modal
@@ -86,18 +86,29 @@ const ProfessionalMemberModal = ({ open, member, onClose }) => {
           <MemberName value={name} expired={expired} />
           {title ? <div style={styles.title}>{title}</div> : null}
           {company ? <div style={styles.company}>{company}</div> : null}
-          {location ?
+          {location.address ?
             <MemberDetailsItem icon="map-marker">
               <div>{location.address}</div>
-              <div>{location.city}, {location.province}, {location.country}</div>
-              <div>{location.postalCode}</div>
+              {/* {location.city && location.province && location.country && location.postalCode ?
+                <div>
+                  <div>{location.city}, {location.province}, {location.country}</div>
+                  <div>{location.postalCode}</div>
+                </div>
+                : null
+              } */}
             </MemberDetailsItem>
             : null
           }
           {phone ? <MemberDetailsItem icon="phone">{phone}</MemberDetailsItem> : null}
           {email ? <MemberDetailsItem icon="envelope">{email}</MemberDetailsItem> : null}
-          <div style={styles.certifications}>Certifications:</div>
-          <MemberCertifications {...certifications} />
+          {
+            certifications.CESCL || certifications.CPESC || certifications.CISEC ?
+              <div>
+                <div style={styles.certifications}>Certifications:</div>
+                <MemberCertifications {...certifications} />
+              </div>
+              : null
+          }
         </div>
       </div>
       <div style={styles.footer}>

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import theme from './theme'
 
@@ -29,11 +30,12 @@ const MemberName = ({ value, expired }) => (
 )
 
 MemberName.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   expired: PropTypes.bool,
 }
 
 MemberName.defaultProps = {
+  value: '',
   expired: false,
 }
 

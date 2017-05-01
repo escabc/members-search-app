@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactTooltip from 'react-tooltip'
+// import ReactTooltip from 'react-tooltip'
 
 import theme from './theme'
 
@@ -54,14 +54,14 @@ const getStyles = ({ CESCL, CESCLExpired, CPESC, CISEC }) => {
 
 const MemberCertifications = (props) => {
   const styles = getStyles(props)
-  const showIcon = props.CESCL || props.CPESC || props.CISEC
+  // const showIcon = props.CESCL || props.CPESC || props.CISEC
 
   return (
     <div style={styles.root}>
       <a href="http://escabc.com/?page=Course_CESCL" style={styles.CESCL}>CESCL</a>
       <a href="http://escabc.com/?page=CPESC" style={styles.CPESC}>CPESC</a>
       <a href="http://escabc.com/?page=CISEC" style={styles.CISEC}>CISEC</a>
-      {showIcon ? <span><i className="fa fa-info-circle" style={styles.icon} aria-hidden="true" data-tip data-for="list-tooltip" /></span> : null}
+      {/* {showIcon ? <span><i className="fa fa-info-circle" style={styles.icon} aria-hidden="true" data-tip data-for="list-tooltip" /></span> : null}
       <ReactTooltip id="list-tooltip" class="msa-tooltip" effect="solid" place="right">
         <div>
           <strong>Lorem ipsum dolor</strong> -  consectetur adipiscing elit
@@ -72,7 +72,7 @@ const MemberCertifications = (props) => {
         <div>
           <strong>Lorem ipsum dolor</strong> -  consectetur adipiscing elit
         </div>
-      </ReactTooltip>
+      </ReactTooltip> */}
     </div>
   )
 }

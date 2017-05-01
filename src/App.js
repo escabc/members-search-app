@@ -1,7 +1,7 @@
 import React from 'react'
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
-import { HashRouter as Router, Route } from 'react-router-dom'
+import { HashRouter as Router, Route, Redirect } from 'react-router-dom'
 
 import Navigation from './Navigation'
 import ProfessionalMembers from './ProfessionalMembers'
@@ -25,7 +25,7 @@ const App = () => (
       <div style={{ padding: 0, width: '100%', maxWidth: 1000 }}>
         <Navigation />
 
-        <Route exact path="/" component={ProfessionalMembers} />
+        <Route exact path="/" render={() => <Redirect to="/professional" />} />
         <Route path="/professional" component={ProfessionalMembers} />
         <Route path="/corporate" component={CorporateMembers} />
         <Route path="/government" component={GovernmentMembers} />

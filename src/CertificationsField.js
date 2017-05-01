@@ -81,8 +81,8 @@ const CertificationsField = (props) => {
   return (
     <div style={styles.root}>
       <div style={styles.label}>
-        <span>Certifications</span>
-        <span><i className="fa fa-info-circle" style={styles.icon} aria-hidden="true" data-tip data-for="filter-tooltip" /></span>
+        <span>Search By Certifications</span>
+        {/* <span><i className="fa fa-info-circle" style={styles.icon} aria-hidden="true" data-tip data-for="filter-tooltip" /></span> */}
       </div>
       <div style={styles.list}>
         <div style={styles.CESCL} onClick={() => onClick('CESCL')}>CESCL</div>

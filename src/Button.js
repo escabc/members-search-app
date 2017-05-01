@@ -51,7 +51,7 @@ const Button = ({ style, styleType, type, onClick, children }) => {
 }
 
 Button.propTypes = {
-  styleType: PropTypes.oneOf(['default', 'primary']),
+  styleType: PropTypes.oneOf(['default', 'primary', 'success']),
   type: PropTypes.oneOf(['button', 'submit']),
 }
 
