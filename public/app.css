@@ -1,0 +1,88 @@
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  font-family: 'Arimo', sans-serif;
+  font-size: 14px;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-family: 'Arimo';
+  font-size: 13px;
+  color: #94a0b2;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  font-family: 'Arimo';
+  font-size: 13px;
+  color: #94a0b2;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  font-family: 'Arimo';
+  font-size: 13px;
+  color: #94a0b2;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-family: 'Arimo';
+  font-size: 13px;
+  color: #94a0b2;
+}
+
+.Select {
+  height: 34px;
+}
+.Select-input {
+  height: 32px !important;
+}
+.Select-control {
+  height: 34px !important;
+  border-radius: 2px !important;
+}
+
+input:focus, select:focus, button:focus, a:focus {
+  outline: 0px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.pagination {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pagination li {
+  margin: 0 10px;
+  width: 28px;
+	height: 28px;
+  font-size: 18px;
+  color: #94a0b2;
+	border: solid 1px #94a0b2;
+  line-height: 28px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pagination li.active {
+  background-color: #94a0b2;
+	border: solid 1px #94a0b2;
+  color: #ffffff;
+}
+
+.msa-tooltip {
+  padding: 10px !important;
+  font-family: Arimo !important;
+  font-size: 12px !important;
+	color: #ffffff !important;
+  border-radius: 4px !important;
+}
+
+.ReactModal__Body--open {
+  overflow: hidden;
+}
