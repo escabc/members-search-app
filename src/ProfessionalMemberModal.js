@@ -89,13 +89,13 @@ const ProfessionalMemberModal = ({ open, member, onClose }) => {
           {location.address ?
             <MemberDetailsItem icon="map-marker">
               <div>{location.address}</div>
-              {/* {location.city && location.province && location.country && location.postalCode ?
+              {location.city && location.province && location.country && location.postalCode ?
                 <div>
                   <div>{location.city}, {location.province}, {location.country}</div>
                   <div>{location.postalCode}</div>
                 </div>
                 : null
-              } */}
+              }
             </MemberDetailsItem>
             : null
           }

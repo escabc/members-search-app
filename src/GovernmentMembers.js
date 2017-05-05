@@ -117,6 +117,16 @@ const GovernmentMembersWithData = graphql(gql`
         country
         postalCode
       }
+      contact {
+        name
+        department
+        phone
+        email
+      }
+      program {
+        website
+        rainfallLink
+      }
       registeredAt
       expired
     }
