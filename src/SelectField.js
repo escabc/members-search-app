@@ -13,13 +13,6 @@ const createStyles = ({ width }) => {
       paddingLeft: 10,
       marginBottom: 5,
     },
-    select: {
-      paddingLeft: 10,
-      height: 34,
-      borderRadius: 2,
-      backgroundColor: '#FFFFFF',
-      border: 'solid 1px #C2CAD8',
-    },
   }
 
   return styles
