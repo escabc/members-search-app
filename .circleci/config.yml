@@ -12,9 +12,9 @@ jobs:
           name: Install Node.js dependencies
           command: yarn install
 
-      - run:
-          name: Lint Test
-          command: yarn run test:lint
+      # - run:
+      #     name: Lint Test
+      #     command: yarn run test:lint
 
       - run:
           name: Unit Test
