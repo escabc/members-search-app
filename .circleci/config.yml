@@ -12,9 +12,9 @@ jobs:
           name: Install Node.js dependencies
           command: yarn install
 
-      - run:
-          name: Lint Test
-          command: yarn run test:lint
+      # - run:
+      #     name: Lint Test
+      #     command: yarn run test:lint
 
       - run:
           name: Unit Test
@@ -24,9 +24,10 @@ jobs:
           name: Build
           command: yarn run build
 
-      # - run:
-      #     name: Deploy to production
-      #     command: |
-      #       if [ "${CIRCLE_BRANCH}" == "master" ]; then
-      #         # aws s3 sync ./public s3://app.memberssearch.com/ --delete
-      #       fi
+      - run:
+          name: Deploy to production
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              aws s3 cp ./public/app.css s3://members-search-app/app.css
+              aws s3 cp ./public/dist/main.*.js s3://members-search-app/app.js
+            fi
