@@ -24,9 +24,9 @@ jobs:
           name: Build
           command: yarn run build
 
-      # - run:
-      #     name: Deploy to production
-      #     command: |
-      #       if [ "${CIRCLE_BRANCH}" == "master" ]; then
-      #         # aws s3 sync ./public s3://app.memberssearch.com/ --delete
-      #       fi
+      - run:
+          name: Deploy to production
+          command: |
+            # if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              aws s3 sync ./public s3://members-search-app/ --delete
+            # fi
