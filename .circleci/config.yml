@@ -16,9 +16,9 @@ jobs:
       #     name: Lint Test
       #     command: yarn run test:lint
 
-      # - run:
-      #     name: Unit Test
-      #     command: yarn run test:unit
+      - run:
+          name: Unit Test
+          command: yarn run test:unit
 
       - run:
           name: Build
@@ -27,8 +27,7 @@ jobs:
       - run:
           name: Deploy to production
           command: |
-            # if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              # aws s3 sync ./public/app.css s3://members-search-app/ --delete
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               aws s3 cp ./public/app.css s3://members-search-app/app.css
               aws s3 cp ./public/dist/main.*.js s3://members-search-app/app.js
-            # fi
+            fi
