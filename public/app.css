@@ -39,9 +39,15 @@ html, body {
 .Select-input {
   height: 32px !important;
 }
+.Select-placeholder {
+  font-family: 'Arimo' !important;
+  font-size: 13px !important;
+  color: #94a0b2 !important;
+}
 .Select-control {
   height: 34px !important;
   border-radius: 2px !important;
+  border: 1px solid #C2CAD8 !important;
 }
 
 input:focus, select:focus, button:focus, a:focus {
