@@ -18,21 +18,19 @@ const items = [
   { id: '/government', title: 'Government', icon: 'flag' },
 ]
 
-const Navigation = ({ location, onClick }) => {
-  return (
-    <div style={styles.root}>
-      {items.map(x => <NavigationItem
-        {...x}
-        key={x.id}
-        active={location.pathname === x.id}
-        onClick={() => onClick(x.id)}
-      />)}
-      <div style={{ flex: 1, textAlign: 'right' }}>
-        <Button styleType="success" onClick={() => (window.location.href = 'http://escabc.com/?page=Membership1')}>Become a Member</Button>
-      </div>
+const Navigation = ({ location, onClick }) => (
+  <div style={styles.root}>
+    {items.map(x => <NavigationItem
+      {...x}
+      key={x.id}
+      active={location.pathname === x.id}
+      onClick={() => onClick(x.id)}
+    />)}
+    <div style={{ flex: 1, textAlign: 'right' }}>
+      <Button styleType="primary" onClick={() => (window.location.href = 'http://escabc.com/?page=Membership1')}>Become a Member</Button>
     </div>
-  )
-}
+  </div>
+)
 
 Navigation.propTypes = {
   onClick: PropTypes.func,
