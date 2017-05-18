@@ -116,6 +116,7 @@ const CorporateMembersWithData = graphql(gql`
       regions
       avatar
       location { address city province country postalCode }
+      contact
       totals { CESCL CPESC CISEC }
       registeredAt
       expired
