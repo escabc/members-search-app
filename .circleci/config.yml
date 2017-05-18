@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Deploy to production
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            # if [ "${CIRCLE_BRANCH}" == "master" ]; then
               aws s3 cp ./public/app.css s3://members-search-app/app.css
               aws s3 cp ./public/dist/main.*.js s3://members-search-app/app.js
-            fi
+            # fi
