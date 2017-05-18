@@ -50,6 +50,7 @@ const styles = {
     },
     rightColumn: {
       paddingLeft: 20,
+      paddingBottom: 20,
     },
   },
   name: {
@@ -104,6 +105,7 @@ const CorporateMemberModal = ({ open, member, onClose }) => {
     fax,
     website,
     location = {},
+    contact,
     totals = {},
   } = member
 
@@ -152,8 +154,9 @@ const CorporateMemberModal = ({ open, member, onClose }) => {
             }
             {phone ? <MemberDetailsItem icon="phone">{phone}</MemberDetailsItem> : null}
             {fax ? <MemberDetailsItem icon="fax">{fax}</MemberDetailsItem> : null}
-            {website ? <MemberDetailsItem icon="link"><a style={styles.link} href={website} target="_blank" rel="noopener noreferrer">Visit Website</a></MemberDetailsItem> : null}
+            {contact ? <MemberDetailsItem icon="user">{contact}</MemberDetailsItem> : null}
             {email ? <MemberDetailsItem icon="envelope">{email}</MemberDetailsItem> : null}
+            {website ? <MemberDetailsItem icon="link"><a style={styles.link} href={website} target="_blank" rel="noopener noreferrer">Visit Website</a></MemberDetailsItem> : null}
           </ModalSection>
           {description ? <div style={styles.description}>{description}</div> : null}
         </div>
