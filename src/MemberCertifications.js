@@ -62,7 +62,7 @@ const MemberCertifications = (props) => {
       <a href="http://escabc.com/?page=Course_CESCL" style={styles.CESCL}>CESCL</a>
       <a href="http://escabc.com/?page=CPESC" style={styles.CPESC}>CPESC</a>
       <a href="http://escabc.com/?page=CISEC" style={styles.CISEC}>CISEC</a>
-      {showIcon ? <span><i className="fa fa-info-circle" style={styles.icon} aria-hidden="true" data-tip data-for="list-tooltip" /></span> : null}
+      {showIcon ? <a><i className="fa fa-info-circle" style={styles.icon} aria-hidden="true" data-tip data-for="list-tooltip" /></a> : null}
       <ReactTooltip id="list-tooltip" class="msa-tooltip" effect="solid" place="right">
         <div>
           <strong>Green</strong> - certification is valid
@@ -71,7 +71,7 @@ const MemberCertifications = (props) => {
           <strong>Yellow</strong> - certification is expired
         </div>
         <div>
-          <strong>Grey</strong> -  administered by other governing bodies
+          <strong>Grey</strong> - administered by other governing bodies
         </div>
         <div>Click on certification for more information.</div>
       </ReactTooltip>
