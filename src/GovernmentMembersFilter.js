@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import TextField from './TextField'
 import SelectField from './SelectField'
 import Button from './Button'
+// import Test from './Test';
 
 import { regions } from './utils'
 
@@ -49,9 +50,8 @@ class GovernmentMembersFilter extends Component {
             label="Search by Region"
             placeholder="Select a Region"
             width={200}
-            value={region}
             options={regions}
-            onChange={x => this.setState({ region: x ? x.value : null })}
+            onValueUpdated={x => this.setState({ region: x ? x.value : null })}
           />
         </div>
         <Button type="submit" styleType="primary">
