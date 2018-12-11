@@ -75,9 +75,8 @@ class ProfessionalMembersFilter extends Component {
             label="Search by Region"
             placeholder="Select a Region"
             width={150}
-            value={region}
             options={regions}
-            onChange={x => this.setState({ region: x ? x.value : null })}
+            onValueUpdated={x => this.setState({ region: x ? x.value : null })}
           />
         </div>
         <div style={styles.wrapper}>
@@ -85,9 +84,8 @@ class ProfessionalMembersFilter extends Component {
             label="Search by City"
             placeholder="Select a City"
             width={150}
-            value={city}
             options={cities}
-            onChange={x => this.setState({ city: x ? x.value : null })}
+            onValueUpdated={x => this.setState({ city: x ? x.value : null })}
           />
         </div>
         <div style={styles.wrapper}>

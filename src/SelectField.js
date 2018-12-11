@@ -1,47 +1,59 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
 
-const createStyles = ({ width }) => {
-  const styles = {
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      width,
-    },
-    label: {
-      paddingLeft: 10,
-      marginBottom: 5,
-    },
+class SelectField extends Component {
+  state = {
+    selectedOption: null,
   }
 
-  return styles
-}
+  createStyles = ({ width }) => {
+    const styles = {
+      root: {
+        display: 'flex',
+        flexDirection: 'column',
+        width,
+      },
+      label: {
+        paddingLeft: 10,
+        marginBottom: 5,
+      },
+    }
+  
+    return styles
+  }
 
-const SelectField = ({ label, placeholder, clearable, width, value, options, onChange }) => {
-  const styles = createStyles({ width })
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
 
-  return (
-    <div style={styles.root}>
-      <div style={styles.label}>{label}</div>
-      <Select
-        placeholder={placeholder}
-        clearable={clearable}
-        value={value}
-        options={options}
-        onChange={onChange}
-      />
-    </div>
-  )
+    this.props.onValueUpdated(selectedOption);
+  }
+
+  render() {
+    const styles = this.createStyles({ width: this.props.width })
+
+    return (
+      <div style={styles.root}>
+        <div style={styles.label}>{this.props.label}</div>
+        <Select
+          placeholder={this.props.placeholder}
+          value={this.state.selectedOption}
+          onChange={this.handleChange}
+          options={this.props.options}
+        />
+      </div>
+        
+    )
+  }
 }
 
 SelectField.propTypes = {
-  value: PropTypes.string,
+  selectedOption: PropTypes.string,
 }
 
 SelectField.defaultProps = {
   width: 170,
-  value: null,
+  selectedOption: null,
 }
 
 export default SelectField

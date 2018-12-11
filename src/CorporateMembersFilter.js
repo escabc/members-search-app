@@ -50,9 +50,8 @@ class CorporateMembersFilter extends Component {
             label="Search by Region"
             placeholder="Select a Region"
             width={200}
-            value={region}
             options={regions}
-            onChange={x => this.setState({ region: x ? x.value : null })}
+            onValueUpdated={x => this.setState({ region: x ? x.value : null })}
           />
         </div>
         <div style={styles.wrapper}>
@@ -60,9 +59,8 @@ class CorporateMembersFilter extends Component {
             label="Search by Speciality"
             placeholder="Select a Speciality"
             width={200}
-            value={speciality}
             options={specialities}
-            onChange={x => this.setState({ speciality: x ? x.value : null })}
+            onValueUpdated={x => this.setState({ speciality: x ? x.value : null })}
           />
         </div>
         <Button type="submit" styleType="primary">
