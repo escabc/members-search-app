@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import TextField from './TextField'
 import SelectField from './SelectField'
 import Button from './Button'
-// import Test from './Test';
 
 import { regions } from './utils'
 
