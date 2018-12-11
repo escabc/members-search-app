@@ -33,13 +33,4 @@ const MemberDetailsItem = ({ icon, children }) => (
   : null
 )
 
-MemberDetailsItem.propTypes = {
-  value: PropTypes.string.isRequired,
-  expired: PropTypes.bool,
-}
-
-MemberDetailsItem.defaultProps = {
-  expired: false,
-}
-
 export default MemberDetailsItem
