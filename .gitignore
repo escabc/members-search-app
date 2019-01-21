@@ -47,3 +47,6 @@ npm-debug.log
 
 # Firebase
 firebase-debug.log
+
+# Environment variables
+.env

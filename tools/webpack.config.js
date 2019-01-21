@@ -1,3 +1,4 @@
+require('dotenv').config()
 const path = require('path')
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
@@ -51,7 +52,7 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: isDebug ? '"development"' : '"production"',
-        MEMBERS_SEARCH_API: process.env.MEMBERS_SEARCH_API || '"http://localhost:3000"',
+        MEMBERS_SEARCH_API: JSON.stringify(process.env.MEMBERS_SEARCH_API) || '"http://localhost:3000"',
       },
       __DEV__: isDebug,
     }),
