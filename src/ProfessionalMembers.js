@@ -133,7 +133,9 @@ const ProfessionalMembersWithData = graphql(gql`
       name
       title
       email
+      website
       phone
+      fax
       company
       regions
       location { address city province country postalCode }
