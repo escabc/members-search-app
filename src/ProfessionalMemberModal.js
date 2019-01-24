@@ -65,10 +65,14 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  link: {
+    color: '#526825',
+    textDecoration: 'none',
+  },
 }
 
 const ProfessionalMemberModal = ({ open, member, onClose }) => {
-  const { name, expired, title, email, phone, location = {}, company, certifications = {} } = member
+  const { name, expired, title, email, website, phone, fax, location = {}, company, certifications = {} } = member
 
   return (
     <Modal
@@ -100,7 +104,9 @@ const ProfessionalMemberModal = ({ open, member, onClose }) => {
             : null
           }
           {phone ? <MemberDetailsItem icon="phone">{phone}</MemberDetailsItem> : null}
+          {fax ? <MemberDetailsItem icon="fax">{fax}</MemberDetailsItem> : null}
           {email ? <MemberDetailsItem icon="envelope">{email}</MemberDetailsItem> : null}
+          {website ? <MemberDetailsItem icon="link"><a style={styles.link} href={website} target="_blank" rel="noopener noreferrer">Visit Website</a></MemberDetailsItem> : null}
           {
             certifications.CESCL || certifications.CPESC || certifications.CISEC ?
               <div>
