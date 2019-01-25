@@ -19,10 +19,6 @@ const styles = {
     lineHeight: 1.38,
     color: '#5E738B',
   },
-  mobileIcon: {
-    fontSize: 19,
-    textAlign: 'center'
-  }
 }
 
 const MemberDetailsItem = ({ icon, customStyles, children }) => (
