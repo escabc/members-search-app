@@ -19,12 +19,16 @@ const styles = {
     lineHeight: 1.38,
     color: '#5E738B',
   },
+  mobileIcon: {
+    fontSize: 19,
+    textAlign: 'center'
+  }
 }
 
-const MemberDetailsItem = ({ icon, children }) => (
+const MemberDetailsItem = ({ icon, customStyles, children }) => (
   <div style={styles.root}>
     <div style={styles.leftColumn}>
-      <i className={`fa fa-${icon}`} style={styles.icon} aria-hidden="true" />
+      <i className={`fa fa-${icon}`} style={{...styles.icon, ...customStyles}} aria-hidden="true" />
     </div>
     <div style={styles.rightColumn}>
       {children}
