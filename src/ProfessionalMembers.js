@@ -135,6 +135,7 @@ const ProfessionalMembersWithData = graphql(gql`
       email
       website
       phone
+      mobile
       fax
       company
       regions
