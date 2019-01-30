@@ -21,10 +21,10 @@ const styles = {
   },
 }
 
-const MemberDetailsItem = ({ icon, children }) => (
+const MemberDetailsItem = ({ icon, customStyles, children }) => (
   <div style={styles.root}>
     <div style={styles.leftColumn}>
-      <i className={`fa fa-${icon}`} style={styles.icon} aria-hidden="true" />
+      <i className={`fa fa-${icon}`} style={{...styles.icon, ...customStyles}} aria-hidden="true" />
     </div>
     <div style={styles.rightColumn}>
       {children}
@@ -32,14 +32,5 @@ const MemberDetailsItem = ({ icon, children }) => (
   </div>
   : null
 )
-
-MemberDetailsItem.propTypes = {
-  value: PropTypes.string.isRequired,
-  expired: PropTypes.bool,
-}
-
-MemberDetailsItem.defaultProps = {
-  expired: false,
-}
 
 export default MemberDetailsItem
