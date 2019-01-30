@@ -50,3 +50,6 @@ firebase-debug.log
 
 # Environment variables
 .env
+
+# Local files
+.DS_Store
