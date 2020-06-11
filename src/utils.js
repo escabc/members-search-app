@@ -1,4 +1,5 @@
 export const regions = [
+  { value: null, label: 'All' },
   { value: 'Cariboo', label: 'Cariboo' },
   { value: 'Kootenay', label: 'Kootenay' },
   { value: 'Lower Mainland', label: 'Lower Mainland' },
@@ -12,6 +13,7 @@ export const regions = [
 ]
 
 export const specialities = [
+  { value: null, label: 'All' },
   { value: 'Consulting Service Providers', label: 'Consulting Service Providers' },
   { value: 'Contractors', label: 'Contractors' },
   { value: 'On-site Service Providers', label: 'On-site Service Providers' },
