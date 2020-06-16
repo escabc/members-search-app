@@ -98,10 +98,17 @@ class ProfessionalMembers extends Component {
     const sortedCities = _.sortBy(uniqueCities, 'value')
     const { filteredMembers, offset, open, selectedMember } = this.state
     const members = [...filteredMembers.slice(offset, offset + PER_PAGE)]
+    const sortedCitiesWithDefault = [
+      {
+        value: null,
+        label: 'All'
+      },
+      ...sortedCities
+    ]
 
     return (
       <div style={{ marginTop: 50 }}>
-        <ProfessionalMembersFilter cities={sortedCities} onClick={this.handleFilterClick} />
+        <ProfessionalMembersFilter cities={sortedCitiesWithDefault} onClick={this.handleFilterClick} />
         <ProfessionalMembersList members={members} onMemberClick={this.handleMemberClick} />
         <div style={{ marginTop: 40, marginBottom: 100, float: 'right' }}>
           <Paginate
