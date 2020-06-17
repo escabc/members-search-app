@@ -4,7 +4,7 @@ import Select from 'react-select'
 
 class SelectField extends Component {
   state = {
-    selectedOption: null,
+    selectedOption: this.props.options[0],
   }
 
   createStyles = ({ width }) => {
