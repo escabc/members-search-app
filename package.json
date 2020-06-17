@@ -16,7 +16,7 @@
     "graphql-tag": "2.0.0",
     "immutability-helper": "2.1.2",
     "jump.js": "^1.0.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "moment": "2.18.1",
     "prop-types": "^15.5.4",
     "react": "15.5.3",
