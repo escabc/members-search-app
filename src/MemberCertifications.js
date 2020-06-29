@@ -4,13 +4,14 @@ import ReactTooltip from 'react-tooltip'
 import theme from './theme'
 
 const getStyles = ({ CESCL, CESCLExpired, CPESC, CISEC }) => {
+  
   const banner = {
     padding: '6px 10px',
     borderRadius: 2,
     fontSize: 14,
-    border: 'solid 1px #E7ECF1',
-    backgroundColor: theme.colors.grey.background,
-    color: theme.colors.grey.regular,
+    border: `solid 1px ${theme.colors.grey.primary}`,
+    backgroundColor: theme.colors.primary,
+    color: '#FFFFFF',
     textDecoration: 'none',
   }
   const styles = {
@@ -24,7 +25,6 @@ const getStyles = ({ CESCL, CESCLExpired, CPESC, CISEC }) => {
       marginRight: 10,
       border: `solid 1px ${theme.colors.success}`,
       backgroundColor: theme.colors.success,
-      color: '#FFFFFF',
     },
     CPESC: {
       ...banner,
@@ -37,7 +37,7 @@ const getStyles = ({ CESCL, CESCLExpired, CPESC, CISEC }) => {
     icon: {
       width: 12,
       height: 12,
-      color: '#F3C200',
+      color: theme.colors.grey.darker,
     },
   }
 
@@ -71,7 +71,7 @@ const MemberCertifications = (props) => {
           <strong>Yellow</strong> - certification is expired
         </div>
         <div>
-          <strong>Grey</strong> - administered by other governing bodies
+          <strong>Blue</strong> - administered by other governing bodies
         </div>
         <div>Click on certification for more information.</div>
       </ReactTooltip>
