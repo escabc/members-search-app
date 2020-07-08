@@ -85,12 +85,10 @@ const config = {
             loader: 'css-loader',
             options: {
               sourceMap: isDebug,
-              importLoaders: true,
+              importLoaders: 2,
               // CSS Modules https://github.com/css-modules/css-modules
               modules: true,
-              localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
-              // CSS Nano http://cssnano.co/options/
-              minimize: !isDebug,
+              // localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
             },
           },
           {
