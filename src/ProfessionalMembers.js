@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { graphql, gql } from 'react-apollo'
+import { gql } from '@apollo/client'
+import { graphql } from '@apollo/client/react/hoc';
 import Paginate from 'react-paginate'
 import jump from 'jump.js'
 import _ from 'lodash'

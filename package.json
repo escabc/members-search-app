@@ -10,11 +10,10 @@
     "eslint": "eslint src test tools postcss.config.js webpack.config.js"
   },
   "dependencies": {
-    "apollo-client": "2.6.10",
-    "apollo-link-rest": "^0.8.0-beta.0",
+    "@apollo/client": "^3.4.4",
     "babel-polyfill": "6.26.0",
     "fastclick": "1.0.6",
-    "graphql-tag": "2.12.5",
+    "graphql": "^15.5.1",
     "immutability-helper": "3.1.1",
     "jump.js": "^1.0.2",
     "lodash": "^4.17.13",
@@ -44,6 +43,7 @@
     "@babel/preset-react": "^7.14.5",
     "@babel/register": "^7.14.5",
     "@babel/runtime": "^7.14.8",
+    "apollo-link-http": "^1.5.17",
     "assets-webpack-plugin": "7.1.1",
     "autoprefixer": "10.3.1",
     "babel-loader": "8.2.2",
