@@ -50,10 +50,20 @@ const config = {
   // The list of plugins for Webpack compiler
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: isDebug ? '"development"' : '"production"',
-        MEMBERS_SEARCH_API: JSON.stringify(process.env.MEMBERS_SEARCH_API) || '"http://localhost:3000"',
-      },
+      'process.env.NODE_ENV' : isDebug ? '"development"' : '"production"',
+      'process.env.MEMBERS_SEARCH_API' : JSON.stringify(process.env.MEMBERS_SEARCH_API) || '"http://localhost:3000"',
+      'process.env.CLIENT_ID' : JSON.stringify(process.env.CLIENT_ID) || '',
+      'process.env.API_KEY' : JSON.stringify(process.env.API_PASSWORD) || '',
+      'process.env.API_PASSWORD' : JSON.stringify(process.env.API_PASSWORD) || '',
+      'process.env.ENDPOINT' : JSON.stringify(process.env.ENDPOINT) || '"http://localhost:3000"',
+      // 'process.env': {
+      //   // NODE_ENV: isDebug ? '"development"' : '"production"',
+      //   // MEMBERS_SEARCH_API: JSON.stringify(process.env.MEMBERS_SEARCH_API) || '"http://localhost:3000"',
+      //   // CLIENT_ID: JSON.stringify(process.env.CLIENT_ID) || '',
+      //   // API_KEY: JSON.stringify(process.env.API_KEY) || '',
+      //   // API_PASSWORD: JSON.stringify(process.env.API_PASSWORD) || '',
+      //   ENDPOINT: JSON.stringify(process.env.ENDPOINT) || '"http://localhost:3000"',
+      // },
       __DEV__: isDebug,
     }),
     // Emit a JSON file with assets paths
