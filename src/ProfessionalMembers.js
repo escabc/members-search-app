@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { gql } from '@apollo/client'
+import React, { useState, useEffect } from 'react'
+import { gql, useQuery } from '@apollo/client'
 import { graphql } from '@apollo/client/react/hoc';
 import Paginate from 'react-paginate'
 import jump from 'jump.js'
@@ -11,49 +11,71 @@ import ProfessionalMemberModal from './ProfessionalMemberModal'
 
 const PER_PAGE = 50
 
-class ProfessionalMembers extends Component {
-  state = {
-    members: [],
-    selectedMember: {},
-    filteredMembers: [],
-    offset: 0,
-    pageCount: 0,
-    open: false,
-    mounted: false,
-  }
+function ProfessionalMembers() {
+  const [members, setMembers] = useState([]);
+  const [selectedMember, setSelectedMember] = useState({});
+  const [filteredMembers, setFilteredMembers] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  componentDidMount() {
-    this.setState({ mounted: true })
-  }
+  const GET_GREETING = gql`
+    query ProfessionalMembersQuery {
+      professionalMembers {
+        id
+        name
+        title
+        email
+        website
+        phone
+        mobile
+        fax
+        company
+        regions
+        location { address city province country postalCode }
+        certifications {
+          CESCL
+          CESCLExpired
+          CPESC
+          CISEC
+        }
+        expired
+      }
+    }
+  `;
 
-  componentWillReceiveProps(nextProps) {
-    const { data: { professionalMembers: members = [] } } = nextProps
-    this.setState({
-      members,
-      filteredMembers: members,
-      pageCount: Math.ceil(members.length / PER_PAGE),
-    })
-  }
+  const { loading, error, data } = useQuery(GET_GREETING);
 
-  handleFilterClick = (filter) => {
-    const { members } = this.state
-    let filteredMembers = members
+  useEffect(() => {
+    setMounted(true);
+    if (data && members.length === 0) {
+      setMembers(data.professionalMembers);
+      setFilteredMembers(data.professionalMembers);
+      setPageCount(Math.ceil(data.professionalMembers.length / PER_PAGE));
+    }
+  });
+
+  const handleFilterClick = (filter) => {
+    // const { members } = this.state
+    // const allMembers = members;
+    let filtered = members
     const nameFilter = filter.name.trim()
     if (nameFilter && nameFilter.length) {
-      filteredMembers = filteredMembers.filter(x => x.name.match(new RegExp(nameFilter, 'i')))
+      filtered = filtered.filter(x => x.name.match(new RegExp(nameFilter, 'i')))
     }
     const companyFilter = filter.company.trim()
     if (companyFilter && companyFilter.length) {
-      filteredMembers = filteredMembers.filter(x => x.company).filter(x => x.company.match(new RegExp(companyFilter, 'i')))
+      filtered = filtered.filter(x => x.company).filter(x => x.company.match(new RegExp(companyFilter, 'i')))
     }
     if (filter.region) {
-      filteredMembers = filteredMembers.filter(x => x.regions.includes(filter.region))
+      filtered = filtered.filter(x => x.regions.includes(filter.region))
     }
     if (filter.city) {
-      filteredMembers = filteredMembers.filter(x => x.location.city).filter(x => x.location.city.match(new RegExp(filter.city, 'i')))
+      filtered = filtered.filter(x => x.location.city).filter(x => x.location.city.match(new RegExp(filter.city, 'i')))
     }
     if (filter.certifications.length) {
-      filteredMembers = filteredMembers.filter((member) => {
+      filtered = filtered.filter((member) => {
         const certifications = Object
           .keys(member.certifications)
           .filter(x => member.certifications[x])
@@ -62,101 +84,72 @@ class ProfessionalMembers extends Component {
       })
     }
 
-    this.setState({
-      filteredMembers,
-      pageCount: Math.ceil(filteredMembers.length / PER_PAGE),
-      offset: 0,
-    })
+    setFilteredMembers(filtered);
+    setPageCount(Math.ceil(filtered.length / PER_PAGE));
+    setOffset(0);
   }
 
-  handlePageChange = ({ selected }) => {
-    if (this.state.mounted) {
+  const handlePageChange = ({ selected }) => {
+    if (mounted) {
       jump('#members-list')
     }
-    const offset = Math.ceil(selected * PER_PAGE)
-    this.setState({ offset })
+    
+    setOffset(Math.ceil(selected * PER_PAGE));
   }
 
-  handleMemberClick = (member) => {
-    this.setState({ open: true, selectedMember: member })
+  const handleMemberClick = (member) => {
+    setSelectedMember(member);
+    setOpen(true);
   }
 
-  handleModalClose = () => {
-    this.setState({ open: false })
+  const handleModalClose = () => {
+    setOpen(false);
   }
 
-  render() {
-    const rawCities = _.compact(this.state.members.map((member) => {
-      if (member.location && member.location.city) {
-        const city = member.location.city
+  const rawCities = _.compact(members.map((member) => {
+    if (member.location && member.location.city) {
+      const city = member.location.city
 
-        return { value: city, label: city }
-      }
+      return { value: city, label: city }
+    }
 
-      return null
-    }))
-    const uniqueCities = _.uniqBy(rawCities, 'value')
-    const sortedCities = _.sortBy(uniqueCities, 'value')
-    const { filteredMembers, offset, open, selectedMember } = this.state
-    const members = [...filteredMembers.slice(offset, offset + PER_PAGE)]
-    const sortedCitiesWithDefault = [
-      {
-        value: null,
-        label: 'All'
-      },
-      ...sortedCities
-    ]
-
-    return (
-      <div style={{ marginTop: 50 }}>
-        <ProfessionalMembersFilter cities={sortedCitiesWithDefault} onClick={this.handleFilterClick} />
-        <ProfessionalMembersList members={members} onMemberClick={this.handleMemberClick} />
-        <div style={{ marginTop: 40, marginBottom: 100, float: 'right' }}>
-          <Paginate
-            previousLabel={<i className="fa fa-angle-left" aria-hidden="true" />}
-            nextLabel={<i className="fa fa-angle-right" aria-hidden="true" />}
-            pageCount={this.state.pageCount}
-            marginPagesDisplayed={10}
-            pageRangeDisplayed={10}
-            onPageChange={this.handlePageChange}
-            containerClassName="pagination"
-            activeClassName="active"
-            initialPage={0}
-          />
-        </div>
-        <ProfessionalMemberModal
-          open={open}
-          member={selectedMember}
-          onClose={this.handleModalClose}
+    return null
+  }))
+  const uniqueCities = _.uniqBy(rawCities, 'value')
+  const sortedCities = _.sortBy(uniqueCities, 'value')
+  const shownMembers = [...filteredMembers.slice(offset, offset + PER_PAGE)]
+  const sortedCitiesWithDefault = [
+    {
+      value: null,
+      label: 'All'
+    },
+    ...sortedCities
+  ]
+  
+  return (
+    <div style={{ marginTop: 50 }}>
+      <ProfessionalMembersFilter cities={sortedCitiesWithDefault} onClick={handleFilterClick} />
+      <ProfessionalMembersList members={shownMembers} onMemberClick={handleMemberClick} />
+      <div style={{ marginTop: 40, marginBottom: 100, float: 'right' }}>
+        <Paginate
+          previousLabel={<i className="fa fa-angle-left" aria-hidden="true" />}
+          nextLabel={<i className="fa fa-angle-right" aria-hidden="true" />}
+          pageCount={pageCount}
+          marginPagesDisplayed={10}
+          pageRangeDisplayed={10}
+          onPageChange={handlePageChange}
+          containerClassName="pagination"
+          activeClassName="active"
+          initialPage={0}
         />
       </div>
-    )
-  }
+      <ProfessionalMemberModal
+        open={open}
+        member={selectedMember}
+        onClose={handleModalClose}
+      />
+    </div>
+  );
 }
 
-const ProfessionalMembersWithData = graphql(gql`
-  query ProfessionalMembersQuery {
-    professionalMembers {
-      id
-      name
-      title
-      email
-      website
-      phone
-      mobile
-      fax
-      company
-      regions
-      location { address city province country postalCode }
-      certifications {
-        CESCL
-        CESCLExpired
-        CPESC
-        CISEC
-      }
-      expired
-    }
-  }
-`, { options: { notifyOnNetworkStatusChange: true } })(ProfessionalMembers)
-
-export default ProfessionalMembersWithData
+export default ProfessionalMembers
