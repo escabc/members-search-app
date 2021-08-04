@@ -30,7 +30,7 @@ const MemberDetailsItem = ({ icon, customStyles, children }) => (
       {children}
     </div>
   </div>
-  : null
+  // : null
 )
 
 export default MemberDetailsItem

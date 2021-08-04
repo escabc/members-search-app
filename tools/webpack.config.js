@@ -3,6 +3,8 @@ const path = require('path')
 const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
 const pkg = require('../package.json')
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v')
@@ -97,10 +99,11 @@ const config = {
               sourceMap: isDebug,
               importLoaders: true,
               // CSS Modules https://github.com/css-modules/css-modules
-              modules: true,
-              localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+              modules: {
+                localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+              },
               // CSS Nano http://cssnano.co/options/
-              minimize: !isDebug,
+              // minimize: !isDebug,
             },
           },
           {
@@ -126,16 +129,22 @@ const config = {
       },
     ],
   },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin(),
+      new CssMinimizerPlugin(),
+    ],
+  },
 }
 
 // Optimize the bundle in release (production) mode
 if (!isDebug) {
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    sourceMap: true,
-    compress: {
-      warnings: isVerbose,
-    },
-  }))
+  // config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+  //   sourceMap: true,
+  //   compress: {
+  //     warnings: isVerbose,
+  //   },
+  // }))
   config.plugins.push(new webpack.optimize.AggressiveMergingPlugin())
 }
 
