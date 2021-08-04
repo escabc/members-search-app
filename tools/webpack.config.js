@@ -17,6 +17,7 @@ const babelConfig = Object.assign({}, pkg.babel, {
 
 // http://webpack.github.io/docs/configuration.html
 const config = {
+  mode: isDebug ? 'development' : 'production',
   context: path.resolve(__dirname, '../src'),
 
   entry: [
@@ -27,7 +28,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, '../public/dist'),
     publicPath: isDebug ? `http://localhost:${process.env.PORT || 8080}/dist/` : '/dist/',
-    filename: isDebug ? '[name].js?[hash]' : '[name].[hash].js',
+    filename: isDebug ? '[name].js?[fullhash]' : '[name].[fullhash].js',
     chunkFilename: isDebug ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
     sourcePrefix: '  ',
   },
@@ -52,7 +53,7 @@ const config = {
   // The list of plugins for Webpack compiler
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV' : isDebug ? '"development"' : '"production"',
+      // 'process.env.NODE_ENV' : isDebug ? '"development"' : '"production"',
       'process.env.MEMBERS_SEARCH_API' : JSON.stringify(process.env.MEMBERS_SEARCH_API) || '"http://localhost:3000"',
       'process.env.CLIENT_ID' : JSON.stringify(process.env.CLIENT_ID) || '',
       'process.env.API_KEY' : JSON.stringify(process.env.API_PASSWORD) || '',
