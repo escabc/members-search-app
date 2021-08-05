@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
-import { graphql } from '@apollo/client/react/hoc';
 import Paginate from 'react-paginate'
 import jump from 'jump.js'
 import _ from 'lodash'
@@ -20,7 +19,7 @@ function ProfessionalMembers() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const GET_GREETING = gql`
+  const GET_MEMBERS = gql`
     query ProfessionalMembersQuery {
       professionalMembers {
         id
@@ -45,7 +44,7 @@ function ProfessionalMembers() {
     }
   `;
 
-  const { loading, error, data } = useQuery(GET_GREETING);
+  const { loading, error, data } = useQuery(GET_MEMBERS);
 
   useEffect(() => {
     setMounted(true);

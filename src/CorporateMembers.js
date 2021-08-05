@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
-import { gql } from '@apollo/client'
-import { graphql } from '@apollo/client/react/hoc';
+import React, { useState, useEffect } from 'react'
+import { gql, useQuery } from '@apollo/client'
 import Paginate from 'react-paginate'
 import jump from 'jump.js'
 
@@ -10,84 +9,98 @@ import CorporateMemberModal from './CorporateMemberModal'
 
 const PER_PAGE = 50
 
-class CorporateMembers extends Component {
-  state = {
-    members: [],
-    selectedMember: {},
-    filteredMembers: [],
-    offset: 0,
-    pageCount: 0,
-    open: false,
-    mounted: false,
-  }
+function CorporateMembers() {
+  const [members, setMembers] = useState([]);
+  const [selectedMember, setSelectedMember] = useState({});
+  const [filteredMembers, setFilteredMembers] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
+  const GET_MEMBERS = gql`
+    query CorporateMembersQuery {
+      corporateMembers {
+        id
+        name
+        description
+        specialities
+        email
+        phone
+        fax
+        website
+        regions
+        avatar
+        location { address city province country postalCode }
+        contact
+        totals { CESCL CPESC CISEC }
+        registeredAt
+        expired
+      }
+    }
+  `;
 
-  componentDidMount() {
-    this.setState({ mounted: true })
-  }
+  const { loading, error, data } = useQuery(GET_MEMBERS);
 
-  componentWillReceiveProps(nextProps) {
-    const { data: { corporateMembers: members = [] } } = nextProps
-    this.setState({
-      members,
-      filteredMembers: members,
-      pageCount: Math.ceil(members.length / PER_PAGE),
-    })
-  }
+  useEffect(() => {
+    setMounted(true);
+    if (data && members.length === 0) {
+      console.log(data);
+      setMembers(data.corporateMembers);
+      setFilteredMembers(data.corporateMembers);
+      setPageCount(Math.ceil(data.corporateMembers.length / PER_PAGE));
+    }
+  });
 
-  handleFilterClick = (filter) => {
-    const { members } = this.state
-    let filteredMembers = members
+  const handleFilterClick = (filter) => {
+    let filtered = members
     const nameFilter = filter.name.trim()
     if (nameFilter && nameFilter.length) {
-      filteredMembers = filteredMembers.filter(x => x.name.match(new RegExp(nameFilter, 'i')))
+      filtered = filtered.filter(x => x.name.match(new RegExp(nameFilter, 'i')))
     }
     if (filter.region) {
-      filteredMembers = filteredMembers.filter(x => x.regions.includes(filter.region))
+      filtered = filtered.filter(x => x.regions.includes(filter.region))
     }
     if (filter.speciality) {
-      filteredMembers = filteredMembers.filter(x => x.specialities.includes(filter.speciality))
+      filtered = filtered.filter(x => x.specialities.includes(filter.speciality))
     }
 
-    this.setState({
-      filteredMembers,
-      pageCount: Math.ceil(filteredMembers.length / PER_PAGE),
-      offset: 0,
-    })
+    setFilteredMembers(filtered);
+    setPageCount(Math.ceil(filtered.length / PER_PAGE));
+    setOffset(0);
   }
 
-  handlePageChange = ({ selected }) => {
-    if (this.state.mounted) {
+  const handlePageChange = ({ selected }) => {
+    if (mounted) {
       jump('#members-list')
     }
-    const offset = Math.ceil(selected * PER_PAGE)
-    this.setState({ offset })
+    
+    setOffset(Math.ceil(selected * PER_PAGE));
   }
 
-  handleMemberClick = (member) => {
-    this.setState({ open: true, selectedMember: member })
+  const handleMemberClick = (member) => {
+    setSelectedMember(member);
+    setOpen(true);
   }
 
-  handleModalClose = () => {
-    this.setState({ open: false })
+  const handleModalClose = () => {
+    setOpen(false);
   }
 
-  render() {
-    const { filteredMembers, offset, open, selectedMember } = this.state
-    const members = [...filteredMembers.slice(offset, offset + PER_PAGE)]
+  const shownMembers = [...filteredMembers.slice(offset, offset + PER_PAGE)]
 
-    return (
-      <div style={{ marginTop: 50 }}>
-        <CorporateMembersFilter onClick={this.handleFilterClick} />
-        <CorporateMemberList members={members} onMemberClick={this.handleMemberClick} />
+  return (
+    <div style={{ marginTop: 50 }}>
+        <CorporateMembersFilter onClick={handleFilterClick} />
+        <CorporateMemberList members={shownMembers} onMemberClick={handleMemberClick} />
         <div style={{ marginTop: 40, marginBottom: 100, float: 'right' }}>
           <Paginate
             previousLabel={<i className="fa fa-angle-left" aria-hidden="true" />}
             nextLabel={<i className="fa fa-angle-right" aria-hidden="true" />}
-            pageCount={this.state.pageCount}
+            pageCount={pageCount}
             marginPagesDisplayed={10}
             pageRangeDisplayed={10}
-            onPageChange={this.handlePageChange}
+            onPageChange={handlePageChange}
             containerClassName="pagination"
             activeClassName="active"
             initialPage={0}
@@ -96,33 +109,12 @@ class CorporateMembers extends Component {
         <CorporateMemberModal
           open={open}
           member={selectedMember}
-          onClose={this.handleModalClose}
+          onClose={handleModalClose}
         />
       </div>
-    )
-  }
+  );
+
 }
 
-const CorporateMembersWithData = graphql(gql`
-  query CorporateMembersQuery {
-    corporateMembers {
-      id
-      name
-      description
-      specialities
-      email
-      phone
-      fax
-      website
-      regions
-      avatar
-      location { address city province country postalCode }
-      contact
-      totals { CESCL CPESC CISEC }
-      registeredAt
-      expired
-    }
-  }
-`, { options: { notifyOnNetworkStatusChange: true } })(CorporateMembers)
 
-export default CorporateMembersWithData
+export default CorporateMembers;
