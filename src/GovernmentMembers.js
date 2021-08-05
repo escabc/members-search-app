@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
-import { gql } from '@apollo/client'
-import { graphql } from '@apollo/client/react/hoc';
+import React, { useState, useEffect } from 'react'
+import { gql, useQuery } from '@apollo/client'
 import Paginate from 'react-paginate'
 import jump from 'jump.js'
 
@@ -10,128 +9,121 @@ import GovernmentMemberModal from './GovernmentMemberModal'
 
 const PER_PAGE = 50
 
-class GovernmentMembers extends Component {
-  state = {
-    members: [],
-    selectedMember: {},
-    filteredMembers: [],
-    offset: 0,
-    pageCount: 0,
-    open: false,
-    mounted: false,
-  }
+function GovernmentMembers() {
+  const [members, setMembers] = useState([]);
+  const [selectedMember, setSelectedMember] = useState({});
+  const [filteredMembers, setFilteredMembers] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  componentDidMount() {
-    this.setState({ mounted: true })
-  }
+  const GET_MEMBERS = gql`
+    query GovernmentMembersQuery {
+      governmentMembers {
+        id
+        name
+        description
+        email
+        phone
+        fax
+        website
+        avatar
+        regions
+        location {
+          address
+          city
+          province
+          country
+          postalCode
+        }
+        contact {
+          name
+          department
+          phone
+          email
+        }
+        program {
+          website
+          rainfallLink
+        }
+        registeredAt
+        expired
+      }
+    }
+  `;
 
-  componentWillReceiveProps(nextProps) {
-    const { data: { governmentMembers: members = [] } } = nextProps
-    this.setState({
-      members,
-      filteredMembers: members,
-      pageCount: Math.ceil(members.length / PER_PAGE),
-    })
-  }
+  const { loading, error, data } = useQuery(GET_MEMBERS);
 
-  handleFilterClick = (filter) => {
-    const { members } = this.state
-    let filteredMembers = members
+  useEffect(() => {
+    setMounted(true);
+    if (data && members.length === 0) {
+      setMembers(data.governmentMembers);
+      setFilteredMembers(data.governmentMembers);
+      setPageCount(Math.ceil(data.governmentMembers.length / PER_PAGE));
+    }
+  });
+
+  const handleFilterClick = (filter) => {
+    let filtered = members;
     const nameFilter = filter.name.trim()
     if (nameFilter && nameFilter.length) {
-      filteredMembers = filteredMembers.filter(x => x.name.match(new RegExp(nameFilter, 'i')))
+      filtered = filtered.filter(x => x.name.match(new RegExp(nameFilter, 'i')))
     }
     if (filter.region) {
-      filteredMembers = filteredMembers.filter(x => x.regions.includes(filter.region))
+      filtered = filtered.filter(x => {
+        return x.regions.includes(filter.region);
+      });
     }
 
-    this.setState({
-      filteredMembers,
-      pageCount: Math.ceil(filteredMembers.length / PER_PAGE),
-      offset: 0,
-    })
+    setFilteredMembers(filtered);
+    setPageCount(Math.ceil(filtered.length / PER_PAGE));
+    setOffset(0);
   }
 
-  handlePageChange = ({ selected }) => {
-    if (this.state.mounted) {
+  const handlePageChange = ({ selected }) => {
+    if (mounted) {
       jump('#members-list')
     }
-    const offset = Math.ceil(selected * PER_PAGE)
-    this.setState({ offset })
+    
+    setOffset(Math.ceil(selected * PER_PAGE));
   }
 
-  handleMemberClick = (member) => {
-    this.setState({ open: true, selectedMember: member })
+  const handleMemberClick = (member) => {
+    setSelectedMember(member);
+    setOpen(true);
   }
 
-  handleModalClose = () => {
-    this.setState({ open: false })
+  const handleModalClose = () => {
+    setOpen(false);
   }
 
-  render() {
-    const { filteredMembers, offset, open, selectedMember } = this.state
-    const members = [...filteredMembers.slice(offset, offset + PER_PAGE)]
+  const shownMembers = [...filteredMembers.slice(offset, offset + PER_PAGE)];
 
-    return (
-      <div style={{ marginTop: 50 }}>
-        <GovernmentMembersFilter onClick={this.handleFilterClick} />
-        <GovernmentMemberList members={members} onMemberClick={this.handleMemberClick} />
-        <div style={{ marginTop: 40, marginBottom: 100, float: 'right' }}>
-          <Paginate
-            previousLabel={<i className="fa fa-angle-left" aria-hidden="true" />}
-            nextLabel={<i className="fa fa-angle-right" aria-hidden="true" />}
-            pageCount={this.state.pageCount}
-            marginPagesDisplayed={10}
-            pageRangeDisplayed={10}
-            onPageChange={this.handlePageChange}
-            containerClassName="pagination"
-            activeClassName="active"
-            initialPage={0}
-          />
-        </div>
-        <GovernmentMemberModal
-          open={open}
-          member={selectedMember}
-          onClose={this.handleModalClose}
+  return (
+    <div style={{ marginTop: 50 }}>
+      <GovernmentMembersFilter onClick={handleFilterClick} />
+      <GovernmentMemberList members={shownMembers} onMemberClick={handleMemberClick} />
+      <div style={{ marginTop: 40, marginBottom: 100, float: 'right' }}>
+        <Paginate
+          previousLabel={<i className="fa fa-angle-left" aria-hidden="true" />}
+          nextLabel={<i className="fa fa-angle-right" aria-hidden="true" />}
+          pageCount={pageCount}
+          marginPagesDisplayed={10}
+          pageRangeDisplayed={10}
+          onPageChange={handlePageChange}
+          containerClassName="pagination"
+          activeClassName="active"
+          initialPage={0}
         />
       </div>
-    )
-  }
+      <GovernmentMemberModal
+        open={open}
+        member={selectedMember}
+        onClose={handleModalClose}
+      />
+    </div>
+  );
 }
 
-const GovernmentMembersWithData = graphql(gql`
-  query GovernmentMembersQuery {
-    governmentMembers {
-      id
-      name
-      description
-      email
-      phone
-      fax
-      website
-      avatar
-      regions
-      location {
-        address
-        city
-        province
-        country
-        postalCode
-      }
-      contact {
-        name
-        department
-        phone
-        email
-      }
-      program {
-        website
-        rainfallLink
-      }
-      registeredAt
-      expired
-    }
-  }
-`, { options: { notifyOnNetworkStatusChange: true } })(GovernmentMembers)
-
-export default GovernmentMembersWithData
+export default GovernmentMembers;
