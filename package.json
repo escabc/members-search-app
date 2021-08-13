@@ -6,7 +6,7 @@
     "build": "NODE_ENV=production node tools/build.js",
     "build:debug": "node tools/build.js --debug",
     "test:lint": "npm run eslint && npm run stylelint",
-    "test:unit": "mocha --compilers js:babel-register",
+    "test:unit": "mocha --require @babel/register",
     "eslint": "eslint src test tools postcss.config.js webpack.config.js"
   },
   "dependencies": {
