@@ -27,7 +27,7 @@ const config = {
   // Options affecting the output of the compilation
   output: {
     path: path.resolve(__dirname, '../public/dist'),
-    publicPath: isDebug ? `http://localhost:${process.env.PORT || 8080}/dist/` : '/dist/',
+    publicPath: isDebug ? `https://localhost:${process.env.PORT || 8080}/dist/` : '/dist/',
     filename: isDebug ? '[name].js?[fullhash]' : '[name].[fullhash].js',
     chunkFilename: isDebug ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
     sourcePrefix: '  ',
@@ -56,7 +56,7 @@ const config = {
       // 'process.env.NODE_ENV' : isDebug ? '"development"' : '"production"',
       'process.env.MEMBERS_SEARCH_API' : JSON.stringify(process.env.MEMBERS_SEARCH_API) || '"http://localhost:3000"',
       'process.env.CLIENT_ID' : JSON.stringify(process.env.CLIENT_ID) || '',
-      'process.env.API_KEY' : JSON.stringify(process.env.API_PASSWORD) || '',
+      'process.env.API_KEY' : JSON.stringify(process.env.API_KEY) || '',
       'process.env.API_PASSWORD' : JSON.stringify(process.env.API_PASSWORD) || '',
       'process.env.ENDPOINT' : JSON.stringify(process.env.ENDPOINT) || '"http://localhost:3000"',
       // 'process.env': {

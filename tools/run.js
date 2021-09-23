@@ -19,7 +19,7 @@ module.exports = task('run', () => new Promise((resolve) => {
   // http://webpack.github.io/docs/webpack-dev-middleware.html
   const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    stats: webpackConfig.stats,
+    stats: webpackConfig.stats
   })
 
   compiler.hooks.done.tap('Hello World Plugin',
@@ -37,6 +37,7 @@ module.exports = task('run', () => new Promise((resolve) => {
       count += 1
       if (count === 1) {
         bs.init({
+          https: true,
           port: process.env.PORT || 8080,
           ui: { port: Number(process.env.PORT || 8080) + 1 },
           server: {
