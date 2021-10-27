@@ -27,7 +27,7 @@ const config = {
   // Options affecting the output of the compilation
   output: {
     path: path.resolve(__dirname, '../public/dist'),
-    publicPath: isDebug ? `https://localhost:${process.env.PORT || 8080}/dist/` : '/dist/',
+    publicPath: isDebug ? `http://localhost:${process.env.PORT || 8080}/dist/` : '/dist/',
     filename: isDebug ? '[name].js?[fullhash]' : '[name].[fullhash].js',
     chunkFilename: isDebug ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
     sourcePrefix: '  ',
