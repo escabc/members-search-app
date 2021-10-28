@@ -8,7 +8,7 @@ import ProfessionalMembersFilter from './ProfessionalMembersFilter'
 import ProfessionalMembersList from './ProfessionalMembersList'
 import ProfessionalMemberModal from './ProfessionalMemberModal'
 
-const PER_PAGE = 50
+const PER_PAGE = 25
 
 function ProfessionalMembers() {
   const [members, setMembers] = useState([]);

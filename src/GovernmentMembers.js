@@ -7,7 +7,7 @@ import GovernmentMembersFilter from './GovernmentMembersFilter'
 import GovernmentMemberList from './GovernmentMemberList'
 import GovernmentMemberModal from './GovernmentMemberModal'
 
-const PER_PAGE = 50
+const PER_PAGE = 25
 
 function GovernmentMembers() {
   const [members, setMembers] = useState([]);

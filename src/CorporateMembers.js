@@ -7,7 +7,7 @@ import CorporateMembersFilter from './CorporateMembersFilter'
 import CorporateMemberList from './CorporateMemberList'
 import CorporateMemberModal from './CorporateMemberModal'
 
-const PER_PAGE = 50
+const PER_PAGE = 25
 
 function CorporateMembers() {
   const [members, setMembers] = useState([]);
