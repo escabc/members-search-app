@@ -28,6 +28,8 @@ $ yarn test # Run unit tests. Or, `yarn run test:watch`
 
 Make sure the API is running and database is populated before starting. If you need to test API changes on staging or live, rename `.env.default` to `.env` and update the url.
 
+You may need to install and older version of node in order to run `yarn`.  You can use [`n`](https://www.npmjs.com/package/n) to install version `10.15.0`.
+
 
 ### How to Deploy
 
