@@ -36,6 +36,14 @@ class SelectField extends Component {
       <div style={styles.root}>
         <div style={styles.label}>{this.props.label}</div>
         <Select
+          styles={{
+            control: (provided) => ({
+              ...provided,
+              minHeight: '34px',
+              height: '34px',
+              flexWrap: 'nowrap',
+            })
+          }}
           placeholder={this.props.placeholder}
           value={this.state.selectedOption}
           onChange={this.handleChange}

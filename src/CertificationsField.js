@@ -91,13 +91,13 @@ const CertificationsField = (props) => {
       </div>
       <ReactTooltip id="filter-tooltip" class="msa-tooltip" effect="solid" place="right">
         <div>
-          <strong>Green</strong> -  consectetur adipiscing elit
+          <strong>Green</strong> - consectetur adipiscing elit
         </div>
         <div>
-          <strong>Lorem ipsum dolor</strong> -  consectetur adipiscing elit
+          <strong>Lorem ipsum dolor</strong> - consectetur adipiscing elit
         </div>
         <div>
-          <strong>Lorem ipsum dolor</strong> -  consectetur adipiscing elit
+          <strong>Lorem ipsum dolor</strong> - consectetur adipiscing elit
         </div>
       </ReactTooltip>
     </div>

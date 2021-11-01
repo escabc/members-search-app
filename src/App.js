@@ -1,6 +1,5 @@
 import React from 'react'
-import ApolloClient, { createNetworkInterface } from 'apollo-client'
-import { ApolloProvider } from 'react-apollo'
+import { ApolloClient, HttpLink, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { HashRouter as Router, Route, Redirect } from 'react-router-dom'
 
 import Navigation from './Navigation'
@@ -13,8 +12,9 @@ import './normalize.css'
 
 const createClient = () => (
   new ApolloClient({
-    networkInterface: createNetworkInterface({
-      uri: `${process.env.MEMBERS_SEARCH_API}/graphql`,
+    cache: new InMemoryCache(),
+    link: new HttpLink({
+      uri: `${process.env.MEMBERS_SEARCH_API}/graphql`
     }),
   })
 )

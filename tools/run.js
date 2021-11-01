@@ -19,33 +19,64 @@ module.exports = task('run', () => new Promise((resolve) => {
   // http://webpack.github.io/docs/webpack-dev-middleware.html
   const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    stats: webpackConfig.stats,
+    stats: webpackConfig.stats
   })
 
-  compiler.plugin('done', (stats) => {
-    // Generate index.html page
-    const bundle = stats.compilation.chunks.find(x => x.name === 'main').files[0]
-    const template = fs.readFileSync('./public/index.ejs', 'utf8')
-    const render = ejs.compile(template, { filename: './public/index.ejs' })
-    const output = render({ debug: true, bundle: `/dist/${bundle}`, config })
-    fs.writeFileSync('./public/index.html', output, 'utf8')
+  compiler.hooks.done.tap('Hello World Plugin',
+    (stats) => {
+      // console.log('Hello World!');
+      // Generate index.html page
+      const bundle = stats.compilation.chunks.find(x => x.name === 'main').files[0]
+      const template = fs.readFileSync('./public/index.ejs', 'utf8')
+      const render = ejs.compile(template, { filename: './public/index.ejs' })
+      const output = render({ debug: true, bundle: `/dist/${bundle}`, config })
+      fs.writeFileSync('./public/index.html', output, 'utf8')
 
-    // Launch Browsersync after the initial bundling is complete
-    // For more information visit https://browsersync.io/docs/options
-    count += 1
-    if (count === 1) {
-      bs.init({
-        port: process.env.PORT || 8080,
-        ui: { port: Number(process.env.PORT || 8080) + 1 },
-        server: {
-          baseDir: 'public',
-          middleware: [
-            webpackDevMiddleware,
-            require('webpack-hot-middleware')(compiler),
-            require('connect-history-api-fallback')(),
-          ],
-        },
-      }, resolve)
+      // Launch Browsersync after the initial bundling is complete
+      // For more information visit https://browsersync.io/docs/options
+      count += 1
+      if (count === 1) {
+        bs.init({
+          https: true,
+          port: process.env.PORT || 8080,
+          ui: { port: Number(process.env.PORT || 8080) + 1 },
+          server: {
+            baseDir: 'public',
+            middleware: [
+              webpackDevMiddleware,
+              require('webpack-hot-middleware')(compiler),
+              require('connect-history-api-fallback')(),
+            ],
+          },
+        }, resolve)
+      }
     }
-  })
+  );
+
+  // compiler.plugin('done', (stats) => {
+  //   // Generate index.html page
+  //   const bundle = stats.compilation.chunks.find(x => x.name === 'main').files[0]
+  //   const template = fs.readFileSync('./public/index.ejs', 'utf8')
+  //   const render = ejs.compile(template, { filename: './public/index.ejs' })
+  //   const output = render({ debug: true, bundle: `/dist/${bundle}`, config })
+  //   fs.writeFileSync('./public/index.html', output, 'utf8')
+
+  //   // Launch Browsersync after the initial bundling is complete
+  //   // For more information visit https://browsersync.io/docs/options
+  //   count += 1
+  //   if (count === 1) {
+  //     bs.init({
+  //       port: process.env.PORT || 8080,
+  //       ui: { port: Number(process.env.PORT || 8080) + 1 },
+  //       server: {
+  //         baseDir: 'public',
+  //         middleware: [
+  //           webpackDevMiddleware,
+  //           require('webpack-hot-middleware')(compiler),
+  //           require('connect-history-api-fallback')(),
+  //         ],
+  //       },
+  //     }, resolve)
+  //   }
+  // })
 }))

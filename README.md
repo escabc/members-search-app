@@ -45,3 +45,11 @@ To push changes live, run the following after building the project:
 $ aws s3 cp ./public/app.css s3://members-search-app/app.css
 $ aws s3 cp ./public/dist/main.*.js s3://members-search-app/app.js
 ```
+
+Using the `aws` docker image instead of a local install of `aws`
+
+```shell
+docker run --rm -it -v ~/.aws:/root/.aws -v "$(pwd)":/aws amazon/aws-cli s3 cp ./public/app.css s3://members-search-app/app.css
+
+docker run --rm -it -v ~/.aws:/root/.aws -v "$(pwd)":/aws amazon/aws-cli s3 cp ./public/dist/main.*.js s3://members-search-app/app.js
+```
