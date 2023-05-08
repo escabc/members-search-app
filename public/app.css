@@ -60,10 +60,11 @@ input:focus, select:focus, button:focus, a:focus {
   margin: 0;
   padding: 0;
   list-style: none;
+  flex-wrap: wrap;
 }
 
 .pagination li {
-  margin: 0 10px;
+  margin: 0 10px 15px;
   width: 28px;
 	height: 28px;
   font-size: 18px;
